@@ -1,2 +1,105 @@
+# =========================
+# DEPENDENCIES
+# =========================
 node_modules/
+jspm_packages/
+bower_components/
+
+# =========================
+# ENV FILES
+# =========================
 .env
+.env.*
+!.env.example
+
+# =========================
+# LOGS
+# =========================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# =========================
+# RUNTIME FILES
+# =========================
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# COVERAGE
+# =========================
+coverage
+*.lcov
+.nyc_output
+
+# =========================
+# BUILD FILES
+# =========================
+dist
+build
+build/Release
+.next
+out
+.nuxt
+.output
+.svelte-kit/
+.vuepress/dist
+.docusaurus
+.serverless/
+
+# =========================
+# CACHE
+# =========================
+.cache
+.parcel-cache
+.fusebox/
+.vite/
+.npm
+.eslintcache
+.stylelintcache
+.pnpm-store
+
+# =========================
+# TYPESCRIPT
+# =========================
+*.tsbuildinfo
+
+# =========================
+# VITE
+# =========================
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# =========================
+# EDITOR / TEST
+# =========================
+.vscode-test
+.node_repl_history
+.tern-port
+
+# =========================
+# PACKAGE FILES
+# =========================
+*.tgz
+
+# =========================
+# REPORTS
+# =========================
+report.*.*.*.*.json
+
+# =========================
+# YARN
+# =========================
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.yarn-integrity
+.pnp.*
