@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!--  Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--  SEO -->
+    <meta name="description" content="Business listing and review platform" />
+    <meta name="keywords" content="business, reviews, marketplace, services" />
+    <meta name="author" content=" @Bill.org " />
+
+    <!--  Theme -->
+    <meta name="theme-color" content="#0f172a" />
+
+    <!--  PWA Support -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!--  iOS Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+    <!--  Favicon -->
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+
+    <title>Billboard</title>
+
+    <!--  Optional Loading Spinner -->
+    <style>
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #ddd;
+        border-top: 4px solid #5d5d5d;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .center {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- React Mount Point -->
+    <div id="root"></div>
+
+    <!-- Vite Entry -->
+    <script type="module" src="/src/app/main.jsx"></script>
+  </body>
+</html>

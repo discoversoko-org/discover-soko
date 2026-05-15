@@ -1,0 +1,350 @@
+/* ========================================
+   DETAILS PAGE
+======================================== */
+
+.details-container {
+  min-height: 100vh;
+
+  background: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-full {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
+}
+
+/* ========================================
+   BACK BUTTON
+======================================== */
+
+.details-back {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0);
+
+  color: #111827;
+
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  box-shadow:
+    0 10px 25px
+    rgba(0, 0, 0, 0);
+
+  z-index: 50;
+}
+
+/* ========================================
+   CARD
+======================================== */
+
+.details-card {
+  width: 100%;
+  max-width: 650px;
+
+  background: #ffffff;
+
+  overflow: hidden;
+
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0;
+}
+
+/* ========================================
+   USER
+======================================== */
+
+.details-user {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding-top: 2px;
+  padding-bottom: 14px;
+}
+
+.details-avatar {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  flex-shrink: 0;
+}
+
+.details-username {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #161616;
+
+  line-height: 1.4;
+}
+
+.details-email {
+  margin: 4px 0 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  line-height: 1.5;
+}
+
+/* ========================================
+   IMAGE
+======================================== */
+
+.details-image-wrapper {
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.details-image {
+  width: 100%;
+  height: 240px;
+
+  object-fit: cover;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  display: block;
+}
+
+.details-image:hover {
+  transform: scale(1.02);
+}
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.details-content {
+  padding-top: 8px;
+  padding-bottom: 0;
+}
+
+.details-content h2 {
+  margin-top: 8px;
+  margin-bottom: 12px;
+
+  font-size: 18px;
+  font-weight: 400;
+
+  font-family: Helvetica, sans-serif;
+
+  text-transform: uppercase;
+
+  color: #161616;
+
+  line-height: 1.5;
+}
+
+/* ========================================
+   DESCRIPTION
+======================================== */
+
+.details-description {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  font-family: roboto, sans-serif;
+
+  line-height: 1.9;
+
+  text-align: left;
+
+  /* FIX LETTER BREAKING */
+  white-space: normal;
+
+  word-break: normal;
+
+  overflow-wrap: break-word;
+
+  hyphens: auto;
+
+  /* KEEP AS PARAGRAPH */
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ========================================
+   LOCATION
+======================================== */
+
+.details-location {
+  margin-top: 14px;
+
+  color: #6b7280;
+
+  font-size: 15px;
+
+  font-family: roboto, sans-serif;
+
+  line-height: 1.6;
+}
+
+/* ========================================
+   WHATSAPP BUTTON
+======================================== */
+
+.details-whatsapp {
+  margin-top: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  padding: 8px 12px;
+
+  border: 1px solid #5d5d5d;
+
+  background: #ffffff;
+
+  color: #6b7280;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  font-family: roboto, sans-serif;
+
+  transition: 0.2s ease;
+}
+
+.details-whatsapp:hover {
+  background: #e9e9e9;
+
+  transform: translateY(-1px);
+}
+
+/* ========================================
+   IMAGE MODAL
+======================================== */
+
+.image-modal {
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+
+  padding: 10px;
+}
+
+.image-modal-img {
+  max-width: 95%;
+  max-height: 95vh;
+
+  object-fit: contain;
+}
+
+/* ========================================
+   MODAL CLOSE
+======================================== */
+
+.image-modal-close {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+
+  .details-card {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .details-image {
+    height: 240px;
+  }
+
+  .details-content h2 {
+    font-size: 22px;
+
+    line-height: 1.4;
+  }
+
+  .details-description {
+    font-size: 15px;
+
+    line-height: 1.2;
+  }
+
+  .details-location {
+    font-size: 14px;
+  }
+}

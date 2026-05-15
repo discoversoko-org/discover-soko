@@ -1,0 +1,22 @@
+<img
+  src={
+    business.image?.url &&
+    business.image.url.startsWith(
+      "https://res.cloudinary.com"
+    )
+      ? business.image.url
+      : "/placeholder.png"
+  }
+  alt={business.name}
+  style={{
+    maxWidth: "200px",
+    maxHeight: "150px",
+    objectFit: "cover",
+    borderRadius: "8px",
+  }}
+  onError={(e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src =
+      "/placeholder.png";
+  }}
+/>

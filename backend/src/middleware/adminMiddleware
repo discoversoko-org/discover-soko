@@ -1,0 +1,17 @@
+const adminMiddleware = (req, res, next) => {
+  try {
+    if (!req.user) {
+      return next({ status: 401, message: "Unauthorized access" });
+    }
+
+    if (req.user.role !== "admin") {
+      return next({ status: 403, message: "Admin access required" });
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = adminMiddleware;

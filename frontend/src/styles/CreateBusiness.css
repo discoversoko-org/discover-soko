@@ -1,0 +1,401 @@
+
+/* RESET  */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+
+/* LAYOUT */
+
+.create {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    
+}
+
+
+
+/* CARD */
+
+.create__card {
+  width: 100%;
+  max-width: 620px;
+  background: #ffffff;
+  padding: 28px 22px;
+
+  border: 1px solid #ffffff;
+  position: relative;
+
+}
+
+
+
+/* CLOSE BUTTON */
+
+.create__close {
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+
+  color: #000000;
+  font-size: 28px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.create__close:hover {
+  background: #ffffff;
+  transform: scale(1.08);
+}
+
+
+
+/* TITLE */
+
+.create__title {
+  text-align: center;
+
+  font-size: 28px;
+  font-weight: 800;
+
+  color: #0f172a;
+
+  margin-bottom: 24px;
+}
+
+
+
+/* IMAGE PREVIEW */
+
+.create__imageWrapper {
+  position: relative;
+
+  width: 100%;
+  height: 240px;
+
+  margin-top: 20px;
+  margin-bottom: 22px;
+  
+
+  overflow: hidden;
+  border: 1px solid #c2c2c2;
+  background: #0c2a4769;
+
+}
+
+.create__imagePreview {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.create__imageWrapper::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,0.35),
+      rgba(0,0,0,0)
+    );
+}
+
+.create__imageBtn {
+
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 2;
+
+  background: rgba(15, 23, 42, 0);
+  color: white;
+  padding: 10px 14px;
+
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.create__imageBtn:hover {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+
+
+/* FORM */
+.create__form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+/* =========================
+   GRID
+========================= */
+.create__grid {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 14px;
+}
+
+/* =========================
+   GROUP
+========================= */
+.create__group {
+  position: relative;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.create__group input,
+.create__group textarea {
+  width: 100%;
+
+  padding:
+    28px 16px 12px;
+
+  border-radius: 0px;
+
+  border: 1.5px solid #c2c2c2;
+
+  background: #ffffff;
+
+  color: #161616;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: 0.25s ease;
+
+  caret-color: #5d5d5d;
+}
+
+/* textarea */
+.create__group textarea {
+  min-height: 150px;
+
+  resize: vertical;
+
+  line-height: 1.7;
+}
+
+/* =========================
+   PLACEHOLDER
+========================= */
+
+.create__group input::placeholder,
+.create__group textarea::placeholder {
+  color: #5d5d5d;
+  opacity: 1;
+
+  transition: 0.2s ease;
+}
+
+/* hide placeholder on focus */
+.create__group input:focus::placeholder,
+.create__group textarea:focus::placeholder {
+  opacity: 0;
+  color: transparent;
+}
+
+/* hide placeholder when typing */
+.create__group input:not(:placeholder-shown)::placeholder,
+.create__group textarea:not(:placeholder-shown)::placeholder {
+  opacity: 0;
+  color: transparent;
+}
+
+/* =========================
+   FLOATING LABEL
+========================= */
+
+.create__group label {
+  position: absolute;
+
+  top: 50%;
+  left: 16px;
+
+  transform: translateY(-50%);
+
+  color: #5d5d5d;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  pointer-events: none;
+
+  transition: all 0.2s ease;
+
+  background: #ffffff;
+
+  padding: 0 6px;
+
+  z-index: 2;
+}
+
+/* textarea label */
+.create__group textarea + label,
+.create__group label.textarea-label {
+  top: 24px;
+  transform: none;
+}
+
+/* =========================
+   FLOAT LABEL
+========================= */
+
+.create__group input:focus + label,
+.create__group input:not(:placeholder-shown) + label,
+.create__group textarea:focus + label,
+.create__group textarea:not(:placeholder-shown) + label {
+  top: 0;
+
+  transform: translateY(-50%);
+
+  font-size: 12px;
+  font-weight: 700;
+
+  color: #5d5d5d;
+}
+
+/* =========================
+   FOCUS STATE
+========================= */
+.create__group input:focus,
+.create__group textarea:focus {
+  outline: none;
+
+  border-color: #5d5d5d;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 5px rgba(93, 93, 93, 0.1);
+}
+
+/* =========================
+   BUTTON
+========================= */
+.create__button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 15px;
+
+  border: 1px solid #5d5d5d;
+  border-radius: 0px;
+  background: #ffffff;
+  
+  color: #5d5d5d;
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.create__button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 24px  #c2c2c2;
+}
+
+.create__button:disabled {
+  background: #94a3b8;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (min-width: 640px) {
+
+  .create__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+
+  .create {
+    padding: 0px; 
+
+  }
+
+  .create__card {
+    
+    padding: 10px;
+    
+  }
+
+  .create__title {
+    font-size: 24px;
+  }
+
+  .create__imageWrapper {
+    height: 240px;
+    width: 100%;
+    
+
+    margin-top: 50px;
+    margin-bottom: 22px;
+  }
+
+  .create__group input,
+  .create__group textarea {
+
+    padding: 11px 12px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+
+
+    font-weight: 500;
+    color: #6b7280;
+    border-radius: 0px;
+    
+  }
+
+  .create__button {
+    padding: 10px 14px;
+    border: 1px solid #5d5d5d;
+    border-radius: 0px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+}
