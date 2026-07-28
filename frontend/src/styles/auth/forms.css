@@ -1,0 +1,359 @@
+/* =========================================
+   AUTH CONTENT
+========================================= */
+
+.auth-content {
+  width: 100%;
+  max-width: var(--container-width);
+
+  min-height: 100%;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* =========================================
+   AUTH HEADER
+========================================= */
+
+.auth-header {
+  width: 100%;
+
+  margin-bottom: 50px;
+}
+
+.auth-title {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-title);
+  font-weight: var(--font-bold);
+  line-height: 38px;
+
+  text-align: left;
+}
+
+.auth-subtitle {
+  margin: 16px 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  font-weight: var(--font-normal);
+  line-height: 30px;
+
+  text-align: left;
+}
+
+/* =========================================
+   DEFAULT AUTH FORM
+========================================= */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 27px;
+
+  margin-top: 50px;
+}
+
+.auth-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+/* =========================================
+   REGISTER EMAIL
+========================================= */
+
+.register-email-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 27px;
+
+  margin-top: 51px;
+}
+
+.register-email-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+/* =========================================
+   LOGIN EMAIL
+========================================= */
+
+.login-email-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 27px;
+
+  margin-top: 51px;
+}
+
+.login-email-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+/* =========================================
+   REGISTER PROFILE
+========================================= */
+
+.register-profile-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 27px;
+
+  margin-top: 0;
+}
+
+.register-profile-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+
+  margin-top: 4px;
+}
+
+/* =========================================
+   REGISTER OTP
+========================================= */
+
+.register-otp-form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 90px;
+
+  gap: 36px;
+}
+
+/* =========================================
+   LOGIN PASSWORD
+========================================= */
+
+.login-password-form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 51px;
+
+  gap: 27px;
+}
+
+.login-password-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+.login-password-form .auth-footer {
+  width: 100%;
+
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  text-align: right;
+
+  color: var(--color-text-secondary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  font-weight: var(--font-medium);
+  line-height: 23px;
+
+  text-decoration: none;
+}
+
+.login-password-form .auth-footer:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   FORGOT PASSWORD
+========================================= */
+
+.forgot-password-form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 50px;
+
+  gap: 27px;
+}
+
+.forgot-password-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+/* =========================================
+   FORGOT OTP
+========================================= */
+
+.forgot-otp-form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 90px;
+
+  gap: 36px;
+}
+
+/* =========================================
+   NEW PASSWORD
+========================================= */
+
+.new-password-form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 51px;
+
+  gap: 27px;
+}
+
+.new-password-form .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+/* =========================================
+   FORM MESSAGES
+========================================= */
+
+.form-error {
+  margin-top: 8px;
+
+  color: var(--color-error);
+
+  font-family: var(--font-family);
+  font-size: var(--font-small);
+  font-weight: var(--font-medium);
+}
+
+.form-success {
+  margin-top: 8px;
+
+  color: var(--color-success);
+
+  font-family: var(--font-family);
+  font-size: var(--font-small);
+  font-weight: var(--font-medium);
+}
+
+/* =========================================
+   AUTH FOOTER
+========================================= */
+
+.auth-footer {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 60px;
+
+  color: var(--color-text-secondary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  font-weight: var(--font-medium);
+  line-height: 23px;
+
+  text-align: left;
+
+  text-decoration: none;
+}
+
+.auth-footer span {
+  color: var(--color-primary);
+
+  font-weight: var(--font-bold);
+
+  cursor: pointer;
+}
+
+.auth-footer span:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   WELCOME PAGE
+========================================= */
+
+.welcome-page {
+  width: 100%;
+  max-width: var(--page-width);
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: var(--color-background);
+}
+
+.welcome-image {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 175px;
+}
+
+.welcome-image img {
+  width: 363px;
+  max-width: calc(100% - 40px);
+
+  height: auto;
+
+  object-fit: contain;
+}
+
+.welcome-bottom {
+  width: 100%;
+  max-width: var(--container-width);
+
+  margin-top: 70px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-bottom h1 {
+  width: 100%;
+
+  margin: 0 0 25px;
+
+  color: var(--color-primary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-title);
+  font-weight: var(--font-bold);
+  line-height: 38px;
+
+  text-align: center;
+}
+
+.welcome-bottom .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}

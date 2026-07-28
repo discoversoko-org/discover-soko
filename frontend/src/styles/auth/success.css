@@ -1,0 +1,113 @@
+/* =========================================
+   OVERLAY
+========================================= */
+
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  background: rgba(217, 217, 217, 0.7);
+
+  z-index: 1000;
+}
+
+/* =========================================
+   SHEET
+========================================= */
+
+.success-sheet {
+  width: 100%;
+  max-width: 402px;
+
+  background: var(--color-background);
+
+  border-radius: 40px 40px 0 0;
+
+  padding: 24px 45px 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  animation: sheetUp .25s ease;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.success-icon-wrapper {
+  width: 119px;
+  height: 119px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 6px;
+}
+
+.success-icon {
+  width: 119px;
+  height: 119px;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.success-title {
+  margin: 28px 0 16px;
+
+  color: var(--color-primary);
+
+  font-size: 32px;
+  font-weight: var(--font-bold);
+
+  text-align: center;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.success-message {
+  width: 100%;
+
+  margin: 0 0 34px;
+
+  color: var(--color-success);
+
+  font-size: 20px;
+  font-weight: var(--font-normal);
+  line-height: 28px;
+
+  text-align: center;
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.success-button {
+  width: 100%;
+  height: var(--button-height);
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes sheetUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
