@@ -1,0 +1,115 @@
+backend/
+├── src/
+│
+├── app.js                            # Express app initialization
+├── server.js                         # Server bootstrap
+│
+├── config/
+│   ├── cookie.js                     # Secure cookie configuration
+│   ├── cors.js                       # CORS configuration
+│   ├── env.js                        # Environment variables loader
+│   ├── jwt.js                        # JWT token configuration
+│   └── index.js                      # Central config exports
+│
+├── infrastructure/
+│   │
+│   ├── cache/
+│   │   └── redis.js                  # Redis connection
+│   │
+│   ├── database/
+│   │   └── mongodb.js                # MongoDB connection
+│   │
+│   ├── logger/
+│   │   └── logger.js                 # Winston/Pino logger
+│   │
+│   ├── messaging/
+│   │   ├── mailer.js                 # Email provider setup
+│   │   └── queue.js                  # BullMQ queues setup
+│   │
+│   └── storage/
+│       └── cloudinary.js             # Cloudinary storage config
+│
+├── middleware/
+│   ├── auth.middleware.js            # JWT authentication middleware
+│   ├── error.middleware.js           # Global error handler
+│   ├── notFound.middleware.js        # 404 middleware
+│   ├── rateLimit.middleware.js       # API rate limiting
+│   ├── role.middleware.js            # Role authorization
+│   ├── security.middleware.js        # Helmet + sanitization + security
+│   ├── upload.middleware.js          # Multer upload middleware
+│   └── validate.middleware.js        # Joi/Zod request validation
+│
+├── models/
+│   ├── AuditLog.js                   # Security & activity logs
+│   ├── Session.js                    # Active refresh token sessions
+│   └── User.js                       # Users model
+│
+├── modules/
+│   │
+│   ├── auth/
+│   │   ├── auth.repository.js         # Auth 
+│   │   ├── auth.controller.js        # Auth controllers
+│   │   ├── auth.routes.js            # Auth routes
+│   │   ├── auth.service.js           # Auth business logic
+│   │   ├── auth.utils.js             # Auth helper utilities
+│   │   ├── auth.validation.js        # Auth validation schemas
+│   │   ├── password.service.js       # Password hashing service
+│   │   └── token.service.js          # JWT access/refresh handling
+│   │
+│   ├── communication/
+│   │   ├── email.service.js          # Email sending service
+│   │   ├── email.template.js         # OTP/auth email templates
+│   │   └── notification.service.js   # Notification orchestration
+│   │
+│   ├── otp/
+│   │   ├── otp.constants.js          # OTP configs
+│   │   ├── otp.queue.js              # OTP email queue jobs
+│   │   ├── otp.service.js            # OTP generation & verification
+│   │   ├── otp.utils.js              # OTP helpers
+│   │   ├── otp.validation.js         # OTP validations
+│   │   └── otp.worker.js             # OTP background worker
+│   │
+│   ├── security/
+│   │   ├── audit.service.js          # Audit logging
+│   │   ├── fraud.service.js          # Fraud detection logic
+│   │   ├── rateLimit.service.js      # Rate limit service
+│   │   └── sanitize.service.js       # Data sanitization service
+│   │
+│   ├── session/
+│   │   ├── session.repository.js     # Session database queries
+│   │   └── session.service.js        # Session handling
+│   │
+│   └── user/
+│       ├── user.controller.js        # User controllers
+│       ├── user.repository.js        # User database access
+│       ├── user.routes.js            # User routes
+│       ├── user.service.js           # User business logic
+│       └── user.validation.js        # User validation schemas
+│
+├── shared/
+│   │
+│   ├── constants/
+│   │   ├── auth.js                   # Auth constants
+│   │   ├── messages.js               # Global messages
+│   │   ├── roles.js                  # CUSTOMER/BUSINESS/ADMIN roles
+│   │   ├── security.js               # Security constants
+│   │   └── statusCodes.js            # HTTP status codes
+│   │
+│   └── utils/
+│       ├── ApiError.js               # Custom API error class
+│       ├── asyncHandler.js           # Async wrapper
+│       ├── date.js                   # Date utilities
+│       ├── helpers.js                # General helpers
+│       ├── phone.util.js             # Phone normalization utilities
+│       └── sendResponse.js           # Standard API responses
+│
+├── jobs/
+│   ├── cleanupSessions.job.js        # Remove expired sessions
+│   └── deleteUnverifiedUsers.job.js  # Delete abandoned accounts
+│
+├── docs/                             # API and architecture docs
+│
+├── .env                              # Environment variables
+├── .gitignore                        # Git ignored files
+├── package.json                      # Dependencies & scripts
+└── package-lock.json

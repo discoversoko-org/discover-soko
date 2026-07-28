@@ -1,0 +1,49 @@
+/* =========================================
+   MOBILE
+   Up to 768px
+========================================= */
+
+@media (max-width: 768px) {
+
+  .page {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .page-content {
+    width: 100%;
+    max-width: var(--page-width);
+    min-height: var(--page-height);
+
+    margin: 0 auto;
+  }
+
+}
+
+/* =========================================
+   TABLET & DESKTOP
+   769px and above
+========================================= */
+
+@media (min-width: 769px) {
+
+  .page {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .page-content {
+    width: var(--desktop-width);
+    max-width: var(--desktop-width);
+
+    height: var(--desktop-height);
+    min-height: var(--desktop-height);
+
+    margin: 0 auto;
+  }
+
+}

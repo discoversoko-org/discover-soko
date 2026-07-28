@@ -1,0 +1,97 @@
+/* =========================================
+   OTP EMAIL
+========================================= */
+
+.otp-email {
+  margin-top: 90px;
+
+  width: 100%;
+
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  font-weight: var(--font-medium);
+
+  color: var(--color-text-secondary);
+}
+
+.otp-email strong {
+  margin-left: 6px;
+
+  color: var(--color-primary);
+
+  font-weight: var(--font-bold);
+}
+
+/* =========================================
+   OTP CONTAINER
+========================================= */
+
+.otp-container {
+  width: 100%;
+
+  margin-top: 14px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* =========================================
+   OTP INPUT
+========================================= */
+
+.otp-input {
+  width: 56px;
+  height: 56px;
+
+  border: var(--input-border);
+  border-radius: var(--input-radius);
+
+  background: var(--color-background);
+
+  outline: none;
+
+  text-align: center;
+
+  font-family: var(--font-family);
+  font-size: var(--font-heading);
+  font-weight: var(--font-bold);
+
+  color: var(--color-text);
+
+  transition: all .2s ease;
+}
+
+.otp-input:focus,
+.otp-input.otp-filled {
+  background: var(--color-inputbackground);
+  border-color: var(--color-primary);
+}
+
+/* =========================================
+   RESEND
+========================================= */
+
+.otp-resend {
+  width: 100%;
+
+  margin-top: 36px;
+
+  border: none;
+  background: transparent;
+
+  text-align: right;
+
+  cursor: pointer;
+
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  font-weight: var(--font-medium);
+
+  color: var(--color-text-secondary);
+}
+
+.otp-resend:disabled {
+  opacity: 1;
+  cursor: default;
+}

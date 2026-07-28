@@ -1,0 +1,54 @@
+:root {
+  /* Colors */
+  --color-primary: #DE6536;
+  --color-primary-light: #F4C9B9;
+  --color-background: #FFFFFF;
+  --color-surface: #FFFFFF;
+  
+
+  --color-text: #212121;
+  --color-text-secondary: #757575;
+  --color-text-primary: #DE6536;
+  --color-success: #4CAF50;
+  --color-error: #F44336;
+
+  --color-border: #DE6536;
+  --color-inputfill: #F4C9B9;
+  
+
+
+  /* Typography */
+  --font-family: "Roboto", sans-serif;
+
+  --font-title: 32px;
+  --font-heading: 24px;
+  --font-body: 20px;
+  --font-small: 16px;
+
+  --font-bold: 600;
+  --font-medium: 500;
+  --font-normal: 400;
+
+  /* Inputs */
+
+  --input-height: 56px;
+  --input-radius: 12px;
+  --input-border: 1px solid var(--color-border);
+
+  /* Buttons */
+
+  --button-height: 56px;
+  --button-radius: 12px;
+
+  /* Layout */
+
+  --page-width: 402px;
+
+  --container-width: 312px;
+
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+}

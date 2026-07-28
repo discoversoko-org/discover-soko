@@ -1,133 +1,148 @@
-const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const cloudinary = require("../config/cloudinary");
+// src/middleware/upload.middleware.js
 
-/* =========================
-   📏 FILE SIZE LIMITS
-========================= */
-const FILE_SIZES = {
-  avatar: 5 * 1024 * 1024,          // 5MB
-  businessImage: 10 * 1024 * 1024,  // 10MB
-  document: 20 * 1024 * 1024,       // 20MB
-};
-
-/* =========================
-   📂 ALLOWED FORMATS
-========================= */
-const ALLOWED_FORMATS = {
-  image: ["jpg", "jpeg", "png", "gif", "webp"],
-  document: ["pdf", "doc", "docx", "xls", "xlsx"],
-  avatar: ["jpg", "jpeg", "png"],
-};
-
-/* =========================
-   ☁️ CLOUDINARY STORAGE
-========================= */
-const createStorage = (folder, formats) => {
-  return new CloudinaryStorage({
-    cloudinary,
-    params: {
-      folder: `business-app/${folder}`,
-      allowed_formats: formats,
-      resource_type: "auto",
-    },
-  });
-};
-
-/* =========================
-   🔍 FILE FILTER
-========================= */
-const fileFilter = (formats) => (req, file, cb) => {
-  const ext = file.originalname.split(".").pop()?.toLowerCase();
-
-  if (!ext || !formats.includes(ext)) {
-    return cb({
-      status: 400,
-      message: `Only ${formats.join(", ")} files are allowed`,
-    });
-  }
-
-  cb(null, true);
-};
-
-/* =========================
-   🏗️ UPLOAD FACTORY
-========================= */
-const createUpload = (folder, formats, sizeLimit) => {
-  return multer({
-    storage: createStorage(folder, formats),
-    limits: { fileSize: sizeLimit },
-    fileFilter: fileFilter(formats),
-  });
-};
-
-/* =========================
-   👤 PROFILE UPLOAD (🔥 MAIN FIX)
-   Handles BOTH:
-   - avatar file
-   - name/email (req.body)
-========================= */
-const uploadProfile = createUpload(
-  "avatars",
-  ALLOWED_FORMATS.avatar,
-  FILE_SIZES.avatar
+const fs = require(
+  "fs"
 );
 
-/* =========================
-   📤 EXPORTS
-========================= */
-module.exports = {
-  /* 👤 Avatar ONLY (legacy) */
-  uploadAvatar: createUpload(
-    "avatars",
-    ALLOWED_FORMATS.avatar,
-    FILE_SIZES.avatar
-  ),
+const path = require(
+  "path"
+);
 
-  /* 🔥 PROFILE (avatar + text fields) */
-  uploadProfile,
+const multer = require(
+  "multer"
+);
 
-  /* 🏢 Business Images */
-  uploadBusinessImage: createUpload(
-    "businesses",
-    ALLOWED_FORMATS.image,
-    FILE_SIZES.businessImage
-  ),
+const ApiError = require(
+  "../shared/utils/ApiError"
+);
 
-  /* 📄 Documents */
-  uploadDocument: createUpload(
-    "documents",
-    ALLOWED_FORMATS.document,
-    FILE_SIZES.document
-  ),
+/* =========================================
+   UPLOAD DIRECTORY
+========================================= */
 
-  /* 🖼️ Generic Images */
-  uploadImage: createUpload(
-    "images",
-    ALLOWED_FORMATS.image,
-    FILE_SIZES.businessImage
-  ),
+const uploadDir =
+  path.join(
+    process.cwd(),
+    "uploads"
+  );
 
-  /* ⚙️ Simple single upload (fallback) */
-  single: (fieldName) => {
-    return multer({
-      storage: createStorage("avatars", ALLOWED_FORMATS.avatar),
-      limits: { fileSize: FILE_SIZES.avatar },
-      fileFilter: fileFilter(ALLOWED_FORMATS.avatar),
-    }).single(fieldName);
-  },
+if (
+  !fs.existsSync(
+    uploadDir
+  )
+) {
+  fs.mkdirSync(
+    uploadDir,
+    {
+      recursive: true,
+    }
+  );
+}
 
-  /* 🧩 Optional upload (safe for mixed JSON/form routes) */
-  optionalSingle: (uploadMiddleware, fieldName) => {
-    return (req, res, next) => {
-      if (!req.is("multipart/form-data")) {
-        return next();
-      }
+/* =========================================
+   STORAGE CONFIGURATION
+========================================= */
 
-      uploadMiddleware.single(fieldName)(req, res, (err) => {
-        if (err) return next(err);
-        next();
-      });
-    };
-  },
+const storage =
+  multer.diskStorage({
+    destination:
+      (
+        _req,
+        _file,
+        callback
+      ) => {
+        callback(
+          null,
+          uploadDir
+        );
+      },
+
+    filename:
+      (
+        _req,
+        file,
+        callback
+      ) => {
+        const extension =
+          path.extname(
+            file.originalname
+          );
+
+        const uniqueName =
+          `${Date.now()}-${Math.round(
+            Math.random() *
+              1e9
+          )}${extension}`;
+
+        callback(
+          null,
+          uniqueName
+        );
+      },
+  });
+
+/* =========================================
+   ALLOWED MIME TYPES
+========================================= */
+
+const allowedMimeTypes =
+  [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+  ];
+
+/* =========================================
+   FILE FILTER
+========================================= */
+
+const fileFilter = (
+  _req,
+  file,
+  callback
+) => {
+  if (
+    allowedMimeTypes.includes(
+      file.mimetype
+    )
+  ) {
+    return callback(
+      null,
+      true
+    );
+  }
+
+  return callback(
+    new ApiError(
+      400,
+      "Invalid file type. Only JPEG, PNG, and WEBP are allowed."
+    ),
+    false
+  );
 };
+
+/* =========================================
+   MULTER INSTANCE
+========================================= */
+
+const upload = multer({
+  storage,
+
+  fileFilter,
+
+  limits: {
+    fileSize:
+      5 *
+      1024 *
+      1024,
+
+    files: 5,
+  },
+});
+
+/* =========================================
+   EXPORT
+========================================= */
+
+module.exports =
+  upload;

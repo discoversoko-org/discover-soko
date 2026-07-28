@@ -1,9 +1,24 @@
-const db = require("./db");
-const cloudinary = require("./cloudinary");
+// src/config/index.js
+
+/* =========================================
+   CONFIG MODULES
+========================================= */
+
+const env = require("./env");
+
 const jwt = require("./jwt");
 
+const cors = require("./cors");
+
+const cookies = require("./cookie");
+
+/* =========================================
+   EXPORTS
+========================================= */
+
 module.exports = {
-  db,
-  cloudinary,
+  env,
   jwt,
+  cors,
+  cookies,
 };

@@ -1,81 +1,256 @@
-module.exports = (err, req, res, next) => {
-  let status = err.status || 500;
-  let message = err.message || "Server Error";
+// src/middleware/error.middleware.js
 
-  /* =========================
-     🔐 AUTH / JWT ERRORS
-  ========================= */
-  if (err.name === "JsonWebTokenError") {
-    status = 401;
-    message = "Invalid token";
+const mongoose = require(
+  "mongoose"
+);
+
+const logger = require(
+  "../infrastructure/logger/logger"
+);
+
+const { env } = require(
+  "../config"
+);
+
+/* =========================================
+   GLOBAL ERROR MIDDLEWARE
+========================================= */
+
+const errorMiddleware = (
+  err,
+  req,
+  res,
+  _next
+) => {
+  let statusCode =
+    err.statusCode ||
+    err.status ||
+    500;
+
+  let message =
+    err.message ||
+    "Internal server error";
+
+  let errors = null;
+
+  /* =========================================
+     MONGOOSE VALIDATION ERROR
+  ========================================= */
+
+  if (
+    err instanceof
+    mongoose.Error.ValidationError
+  ) {
+    statusCode = 400;
+
+    message =
+      "Validation failed";
+
+    errors =
+      Object.values(
+        err.errors
+      ).map(
+        (item) =>
+          item.message
+      );
   }
 
-  if (err.name === "TokenExpiredError") {
-    status = 401;
-    message = "Token expired";
+  /* =========================================
+     DUPLICATE KEY ERROR
+  ========================================= */
+
+  if (
+    err.code === 11000
+  ) {
+    statusCode = 409;
+
+    const field =
+      Object.keys(
+        err.keyValue
+      )[0];
+
+    message = `${field} already exists`;
   }
 
-  /* =========================
-     🗄️ MONGODB / MONGOOSE ERRORS
-  ========================= */
-  if (err.name === "CastError") {
-    status = 400;
-    message = "Invalid ID format";
+  /* =========================================
+     INVALID OBJECT ID
+  ========================================= */
+
+  if (
+    err instanceof
+    mongoose.Error.CastError
+  ) {
+    statusCode = 400;
+
+    message =
+      "Invalid resource ID";
   }
 
-  if (err.code === 11000) {
-    status = 400;
+  /* =========================================
+     JWT ERRORS
+  ========================================= */
 
-    // Extract duplicate field safely
-    const field = Object.keys(err.keyValue || {})[0];
-    message = field
-      ? `${field} already exists`
-      : "Duplicate field value";
+  if (
+    err.name ===
+    "JsonWebTokenError"
+  ) {
+    statusCode = 401;
+
+    message =
+      "Invalid token";
   }
 
-  if (err.name === "ValidationError") {
-    status = 400;
-    message = Object.values(err.errors)
-      .map((val) => val.message)
-      .join(", ");
+  if (
+    err.name ===
+    "TokenExpiredError"
+  ) {
+    statusCode = 401;
+
+    message =
+      "Token expired";
   }
 
-  /* =========================
-     📤 FILE UPLOAD (MULTER)
-  ========================= */
-  if (err instanceof Error && err.message.includes("files are allowed")) {
-    status = 400;
-    message = err.message;
+  /* =========================================
+     MULTER ERRORS
+  ========================================= */
+
+  if (
+    err.name ===
+    "MulterError"
+  ) {
+    statusCode = 400;
+
+    message =
+      err.message;
   }
 
-  if (err.code === "LIMIT_FILE_SIZE") {
-    status = 400;
-    message = "File too large";
+  /* =========================================
+     INVALID JSON PAYLOAD
+  ========================================= */
+
+  if (
+    err instanceof
+      SyntaxError &&
+    err.status ===
+      400 &&
+    "body" in err
+  ) {
+    statusCode = 400;
+
+    message =
+      "Invalid JSON payload";
   }
 
-  /* =========================
-     ⚙️ CUSTOM APP ERRORS
-  ========================= */
-  if (typeof err === "string") {
-    message = err;
+  /* =========================================
+     REDIS ERRORS
+  ========================================= */
+
+  if (
+    err.name ===
+      "RedisError" ||
+    err.code ===
+      "ECONNREFUSED"
+  ) {
+    statusCode = 503;
+
+    message =
+      "Cache service unavailable";
   }
 
-  if (err.isOperational === false) {
-    message = "Unexpected server error";
+  /* =========================================
+     CLOUDINARY ERRORS
+  ========================================= */
+
+  if (
+    err.http_code
+  ) {
+    statusCode =
+      err.http_code;
+
+    message =
+      err.message ||
+      "Cloudinary upload failed";
   }
 
-  /* =========================
-     🪵 LOGGING (DEV ONLY)
-  ========================= */
-  if (process.env.NODE_ENV !== "production") {
-    console.error("❌ ERROR STACK:", err);
+  /* =========================================
+     FALLBACK STATUS
+  ========================================= */
+
+  if (
+    !statusCode ||
+    statusCode < 100
+  ) {
+    statusCode = 500;
   }
 
-  /* =========================
-     📤 RESPONSE
-  ========================= */
-  res.status(status).json({
-    success: false,
+  /* =========================================
+     ERROR LOGGING
+  ========================================= */
+
+  logger.error({
     message,
+
+    statusCode,
+
+    method:
+      req.method,
+
+    path:
+      req.originalUrl,
+
+    ip:
+      req.ip,
+
+    userAgent:
+      req.get(
+        "user-agent"
+      ),
+
+    requestBody:
+      req.body,
+
+    params:
+      req.params,
+
+    query:
+      req.query,
+
+    stack:
+      err.stack,
   });
+
+  /* =========================================
+     ERROR RESPONSE
+  ========================================= */
+
+  return res
+    .status(
+      statusCode
+    )
+    .json({
+      success: false,
+
+      statusCode,
+
+      message,
+
+      ...(errors && {
+        errors,
+      }),
+
+      ...(env.isDevelopment && {
+        stack:
+          err.stack,
+
+        rawError:
+          err,
+      }),
+    });
 };
+
+/* =========================================
+   EXPORT
+========================================= */
+
+module.exports =
+  errorMiddleware;

@@ -1,0 +1,56 @@
+/* =========================================
+   SPLASH
+========================================= */
+
+.splash {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--color-primary);
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.splash-logo {
+  display: block;
+
+  width: 62.27px;
+  height: 77px;
+
+  object-fit: contain;
+  flex-shrink: 0;
+
+  animation: splashFade 0.8s ease;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes splashFade {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-logo {
+    animation: none;
+  }
+}

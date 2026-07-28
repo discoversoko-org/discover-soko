@@ -1,0 +1,25 @@
+.auth-button {
+  width: 100%;
+  height: var(--button-height);
+
+  border: none;
+  border-radius: var(--button-radius);
+
+  background: var(--color-primary);
+  color: #F4F4F4;
+
+  font-family: var(--font-family);
+  font-size: var(--font-heading);
+  font-weight: var(--font-bold);
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,63 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--color-background);
+}
+
+/* =========================================
+   AUTH PAGE
+========================================= */
+
+.page-content {
+  position: relative;
+
+  width: 100%;
+  max-width: var(--page-width);
+  min-height: var(--page-height);
+
+  padding: 24px;
+
+  background: var(--color-background);
+
+  overflow: hidden;
+}
+
+.auth-page {
+  display: block;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 402px) {
+  .page-content {
+    min-height: 100vh;
+    padding: 24px;
+  }
+}
+
+/* =========================================
+   TABLET & DESKTOP
+========================================= */
+
+@media (min-width: 769px) {
+  .page-content {
+    width: var(--desktop-width);
+    max-width: var(--desktop-width);
+
+    height: var(--desktop-height);
+    min-height: var(--desktop-height);
+
+    padding: 24px;
+  }
+}

@@ -1,0 +1,91 @@
+/* =========================================
+   WELCOME PAGE
+========================================= */
+
+.welcome-page {
+  width: 100%;
+  max-width: var(--page-width);
+  min-height: var(--page-height);
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-background);
+
+  overflow: hidden;
+}
+
+/* =========================================
+   WELCOME IMAGE
+========================================= */
+
+.welcome-image {
+  flex: 1;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 48px;
+}
+
+.welcome-image img {
+  width: min(380px, calc(100% - 40px));
+  max-width: 100%;
+
+  height: auto;
+
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+/* =========================================
+   BOTTOM CONTENT
+========================================= */
+
+.welcome-bottom {
+  width: 100%;
+  max-width: var(--container-width);
+
+  margin: 0 auto;
+
+  padding-bottom: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.welcome-bottom h1 {
+  width: 100%;
+
+  margin: 0 0 25px;
+
+  color: var(--color-primary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-title);
+  font-weight: var(--font-bold);
+  line-height: var(--line-height-title);
+
+  text-align: center;
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.welcome-bottom .auth-button {
+  width: 100%;
+  height: var(--button-height);
+}
