@@ -5,11 +5,8 @@
 ========================================= */
 
 const env = require("./env");
-
 const jwt = require("./jwt");
-
 const cors = require("./cors");
-
 const cookies = require("./cookie");
 
 /* =========================================

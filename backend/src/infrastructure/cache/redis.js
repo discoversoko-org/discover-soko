@@ -1,111 +1,83 @@
 // src/infrastructure/cache/redis.js
 
-const Redis = require(
-  "ioredis"
-);
+const Redis = require("ioredis");
 
-const { env } = require(
-  "../../config"
-);
+const { env } = require("../../config");
 
-const logger = require(
-  "../logger/logger"
-);
+const logger = require("../logger/logger");
 
-const maxRedisRetries =
-  env.isDevelopment ? 3 : 30;
+const maxRedisRetries = env.isDevelopment ? 3 : 30;
 
-let redisUnavailableLogged =
-  false;
+let redisUnavailableLogged = false;
+let redis = null;
 
 /* =========================================
    REDIS CLIENT
 ========================================= */
 
-const redis = new Redis(
-  env.redisUrl,
-  {
-    maxRetriesPerRequest:
-      null,
+if (!env.redisUrl) {
+  logger.warn(
+    "⚠️ REDIS_URL not configured. Redis-backed features are disabled."
+  );
 
-    enableReadyCheck:
-      false,
+  module.exports = null;
+  return;
+}
 
-    retryStrategy(
-      retries
-    ) {
-      if (
-        retries >
-        maxRedisRetries
-      ) {
-        if (
-          !redisUnavailableLogged
-        ) {
-          logger.warn(
-            "⚠️ Redis unavailable. Continuing without Redis-backed features in development."
-          );
-          redisUnavailableLogged =
-            true;
-        }
-        return null;
+redis = new Redis(env.redisUrl, {
+  maxRetriesPerRequest: null,
+
+  enableReadyCheck: true,
+
+  lazyConnect: false,
+
+  retryStrategy(retries) {
+    if (retries > maxRedisRetries) {
+      if (!redisUnavailableLogged) {
+        logger.warn(
+          "⚠️ Redis unavailable. Continuing without Redis-backed features."
+        );
+
+        redisUnavailableLogged = true;
       }
 
-      return Math.min(
-        retries * 100,
-        3000
-      );
-    },
-  }
-);
+      return null;
+    }
+
+    return Math.min(retries * 200, 3000);
+  },
+});
 
 /* =========================================
    REDIS EVENTS
 ========================================= */
 
-redis.on(
-  "connect",
-  () => {
-    redisUnavailableLogged =
-      false;
-    logger.info(
-      "✅ Redis connected"
-    );
-  }
-);
+redis.on("connect", () => {
+  redisUnavailableLogged = false;
 
-redis.on(
-  "ready",
-  () => {
-    logger.info(
-      "🚀 Redis ready"
-    );
-  }
-);
+  logger.info("✅ Redis connected");
+});
 
-redis.on(
-  "close",
-  () => {
-    logger.warn(
-      "⚠️ Redis connection closed"
-    );
-  }
-);
+redis.on("ready", () => {
+  logger.info("🚀 Redis ready");
+});
 
-redis.on(
-  "error",
-  (error) => {
-    if (redisUnavailableLogged) {
-      return;
-    }
-    logger.error(
-      `❌ Redis error: ${error.message}`
-    );
-  }
-);
+redis.on("close", () => {
+  logger.warn("⚠️ Redis connection closed");
+});
+
+redis.on("reconnecting", () => {
+  logger.warn("🔄 Reconnecting to Redis...");
+});
+
+redis.on("error", (error) => {
+  if (redisUnavailableLogged) return;
+
+  logger.error(`❌ Redis error: ${error.message}`);
+});
 
 /* =========================================
    EXPORT
 ========================================= */
 
-module.exports =
-  redis;
+module.exports = redis;
