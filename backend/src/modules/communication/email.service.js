@@ -22,19 +22,11 @@ const sendEmail = async ({
   html,
 }) => {
   try {
-    return await mailer.sendMail(
-      {
-        from:
-          process.env
-            .EMAIL_FROM,
-
-        to,
-
-        subject,
-
-        html,
-      }
-    );
+    return await mailer.sendMail({
+      to,
+      subject,
+      html,
+    });
   } catch (error) {
     console.error(
       "EMAIL ERROR:",

@@ -1,67 +1,53 @@
 // src/infrastructure/messaging/mailer.js
 
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 const logger = require("../logger/logger");
 
 /* =========================================
-   MAIL TRANSPORTER
+   RESEND CLIENT
 ========================================= */
 
-const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-
-  port: Number(process.env.MAIL_PORT),
-
-  secure: Number(process.env.MAIL_PORT) === 465,
-
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-
-  // Prefer IPv4 to avoid IPv6 routing issues
-  family: 4,
-
-  connectionTimeout: 15000,
-
-  greetingTimeout: 10000,
-
-  socketTimeout: 20000,
-
-  tls: {
-    minVersion: "TLSv1.2",
-    rejectUnauthorized: true,
-  },
-});
+const resend = new Resend(
+  process.env.RESEND_API_KEY
+);
 
 /* =========================================
-   VERIFY CONNECTION
+   VERIFY CONFIGURATION
 ========================================= */
 
 const verifyMailer = async () => {
   try {
-    logger.info("📧 Verifying mail server connection...");
+    logger.info(
+      "📧 Verifying Resend configuration..."
+    );
+
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error(
+        "RESEND_API_KEY is missing."
+      );
+    }
+
+    if (!process.env.MAIL_FROM) {
+      throw new Error(
+        "MAIL_FROM is missing."
+      );
+    }
 
     logger.info(
-      `📧 SMTP: ${process.env.MAIL_HOST}:${process.env.MAIL_PORT}`
+      `📧 From: ${process.env.MAIL_FROM}`
     );
 
     logger.info(
-      `📧 User: ${process.env.MAIL_USER}`
+      "✅ Resend configured successfully"
     );
-
-    await transporter.verify();
-
-    logger.info("✅ Mailer connected");
   } catch (error) {
     logger.error(
-      `❌ Mailer connection failed: ${error.message}`
+      `❌ Mail configuration failed: ${error.message}`
     );
 
-    // Continue running even if SMTP is unavailable.
     logger.warn(
-      "⚠️ Email sending will be unavailable until the SMTP server becomes reachable."
+      "⚠️ Email sending will be unavailable until the configuration is fixed."
     );
   }
 };
@@ -69,7 +55,48 @@ const verifyMailer = async () => {
 verifyMailer();
 
 /* =========================================
+   SEND EMAIL
+========================================= */
+
+const sendMail = async ({
+  to,
+  subject,
+  html,
+  text,
+}) => {
+  try {
+    const response =
+      await resend.emails.send({
+        from: process.env.MAIL_FROM,
+        to: Array.isArray(to)
+          ? to
+          : [to],
+        subject,
+        html,
+        text,
+      });
+
+    logger.info(
+      `✅ Email sent to ${Array.isArray(to) ? to.join(", ") : to}`
+    );
+
+    return response;
+  } catch (error) {
+    logger.error(
+      `❌ Failed to send email: ${
+        error.message || error
+      }`
+    );
+
+    throw error;
+  }
+};
+
+/* =========================================
    EXPORT
 ========================================= */
 
-module.exports = transporter;
+module.exports = {
+  resend,
+  sendMail,
+};
