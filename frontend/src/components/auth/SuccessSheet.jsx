@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import Check from "../../assets/logos/Check.svg";
+import Check from "../../assets/logos/check.svg";
 
 import "../../styles/auth/success.css";
 
